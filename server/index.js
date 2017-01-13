@@ -1,4 +1,5 @@
-var app = require('express').createServer();
+var express = require('express');
+var app = express();
 var io = require('socket.io')(app);
 
 app.listen(80);
