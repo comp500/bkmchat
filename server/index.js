@@ -12,13 +12,11 @@ var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
 		var user = data.username;
-		if (!users.includes(user)) {
-			users.push(user);
-			socket.broadcast.emit("joined", {
-				username: user
-			});
-		}
-		socket.on("disconnect", function (data) { // TODO: Fix this deleting other users, maybe link user to socket or something...?!
+		users.push(user);
+		socket.broadcast.emit("joined", {
+			username: user
+		});
+		socket.on("disconnect", function (data) {
 			var i = users.indexOf(user);
 			users.splice(i, 1);
 			if (users.length < 2) {
