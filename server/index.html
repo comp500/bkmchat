@@ -1,13 +1,27 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 	var socket = io.connect('http://localhost');
-	localStorage.debug = 'socket.io-client:socket';
+	localStorage.debug = '';
 	var user = prompt("username?"); // because i hate you
+	
+	socket.on("connected", function (data) {
+		console.log("connected!");
+	});
+	
+	socket.on("joined", function (data) {
+		console.log("i'm not alone!");
+	});
+	
+	socket.on("alone", function (data) {
+		console.log("i'm alone");
+	});
+	
 	socket.on("message", function (data){
 		if (data.username != user) {
 			console.log(data.username + ": " + data.message);
 		}
 	});
+	
 	var message = function (msg) {
 		socket.emit("message", {
 			username: user,
