@@ -5,12 +5,19 @@ var io = require('socket.io')(server);
 server.listen(80);
 
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+	res.sendfile(__dirname + '/index.html');
 });
 
+var allClients = [];
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+	allClients.push(socket);
+	socket.emit("connected");
+	socket.broadcast.emit("joined");
+	socket.on("disconnect", function (data) {
+		var i = allClients.indexOf(socket);
+		allClients.splice(i, 1);
+		if (allClients.length < 2) {
+			socket.broadcast.emit("alone");
+		}
+	});
 });
