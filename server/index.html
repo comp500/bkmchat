@@ -10,11 +10,11 @@
 	chatDiv.style.height = "5px";
 	chatDiv.style.backgroundColor = "red";
 	
-	var user = prompt("username?"); // because i hate you
+	var user = "test1"; // because i hate you
 	
 	socket.on("connected", function (data) {
 		console.log("connected!");
-		chatDiv.style.backgroundColor = data.notalone ? "green" : "amber";
+		chatDiv.style.backgroundColor = data.notalone ? "orange" : "green";
 	});
 	
 	socket.on("joined", function (data) {
@@ -24,7 +24,7 @@
 	
 	socket.on("alone", function (data) {
 		console.log("i'm alone");
-		chatDiv.style.backgroundColor = "amber";
+		chatDiv.style.backgroundColor = "orange";
 	});
 	
 	socket.on("message", function (data){

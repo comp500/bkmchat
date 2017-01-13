@@ -12,7 +12,7 @@ var allClients = [];
 io.on('connection', function (socket) {
 	allClients.push(socket);
 	socket.emit("connected", {
-		alone: allClients.length > 1
+		notalone: allClients.length > 1
 	});
 	socket.broadcast.emit("joined");
 	socket.on("disconnect", function (data) {
