@@ -20,4 +20,7 @@ io.on('connection', function (socket) {
 			socket.broadcast.emit("alone");
 		}
 	});
+	socket.on("message", function (data) {
+		socket.broadcast.emit("message", data);
+	});
 });
