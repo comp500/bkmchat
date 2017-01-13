@@ -3,13 +3,13 @@
 	var socket = io.connect('http://localhost');
 	localStorage.debug = 'socket.io-client:socket';
 	var user = prompt("username?"); // because i hate you
-	io.on("message", function (data){
+	socket.on("message", function (data){
 		if (data.username != user) {
 			console.log(msg);
 		}
 	});
 	var message = function (msg) {
-		io.emit("message", {
+		socket.emit("message", {
 			username: user,
 			message: msg
 		});
