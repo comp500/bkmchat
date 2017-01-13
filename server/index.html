@@ -3,12 +3,13 @@
 	var socket = io.connect('http://localhost');
 	document.write("<div id=\"bkmChat\"></div>");
 	var chatDiv = document.getElementById("bkmChat");
-	chatDiv.style.position = "relative";
+	chatDiv.style.position = "absolute";
 	chatDiv.style.bottom = "0";
 	chatDiv.style.right = "0";
 	chatDiv.style.width = "5px";
 	chatDiv.style.height = "5px";
 	chatDiv.style.backgroundColor = "red";
+	chatDiv.style.zIndex = "1000";
 	
 	var user = "test1"; // because i hate you
 	
