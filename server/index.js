@@ -8,21 +8,28 @@ app.get('/', function (req, res) {
 	res.sendfile(__dirname + '/index.html');
 });
 
-var allClients = [];
+var users = [];
 io.on('connection', function (socket) {
-	allClients.push(socket);
-	socket.emit("connected", {
-		notalone: allClients.length > 1
-	});
-	socket.broadcast.emit("joined");
-	socket.on("disconnect", function (data) {
-		var i = allClients.indexOf(socket);
-		allClients.splice(i, 1);
-		if (allClients.length < 2) {
-			socket.broadcast.emit("alone");
+	socket.on("user", function (data) {
+		var user = data.username;
+		if (!users.includes(user)) {
+			users.push(user);
+			socket.broadcast.emit("joined", {
+				username: user
+			});
 		}
-	});
-	socket.on("message", function (data) {
-		socket.broadcast.emit("message", data);
+		socket.on("disconnect", function (data) { // TODO: Fix this deleting other users, maybe link user to socket or something...?!
+			var i = users.indexOf(user);
+			users.splice(i, 1);
+			if (users.length < 2) {
+				socket.broadcast.emit("alone");
+			}
+		});
+		socket.emit("connected", {
+			notalone: users.length > 1
+		});
+		socket.on("message", function (data) {
+			socket.broadcast.emit("message", data);
+		});
 	});
 });
