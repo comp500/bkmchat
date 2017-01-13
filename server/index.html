@@ -1,19 +1,30 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 	var socket = io.connect('http://localhost');
-	localStorage.debug = '';
+	document.write('<div id="bkmChat"></div>');
+	var chatDiv = document.getElementById("bkmChat");
+	chatDiv.style.position = "relative";
+	chatDiv.style.bottom = "0";
+	chatDiv.style.right = "0";
+	chatDiv.style.width = "5px";
+	chatDiv.style.height = "5px";
+	chatDiv.style.backgroundColor = "red";
+	
 	var user = prompt("username?"); // because i hate you
 	
 	socket.on("connected", function (data) {
 		console.log("connected!");
+		chatDiv.style.backgroundColor = data.notalone ? "green" : "amber";
 	});
 	
 	socket.on("joined", function (data) {
 		console.log("i'm not alone!");
+		chatDiv.style.backgroundColor = "green";
 	});
 	
 	socket.on("alone", function (data) {
 		console.log("i'm alone");
+		chatDiv.style.backgroundColor = "amber";
 	});
 	
 	socket.on("message", function (data){
