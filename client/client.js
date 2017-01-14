@@ -78,7 +78,7 @@ chatDiv.addEventListener("mouseleave", function(event) {
 		case "alone":
 			chatDiv.style.backgroundColor = "#FFB324";
 			break;
-		case default:
+		default:
 			chatDiv.style.backgroundColor = "#FF3B2C";
 	}
 }, false);
