@@ -69,20 +69,20 @@ socket.on("connected", function (data) {
 
 socket.on("joined", function (data) {
 	console.log("i'm not alone!");
-	var status = "good";
+	status = "good";
 	setColour();
 });
 
 socket.on("alone", function (data) {
 	console.log("i'm alone");
-	var status = "alone";
+	status = "alone";
 	setColour();
 });
 
 socket.on("message", function (data){
 	if (data.username != user) {
 		newmessages.innerHTML += escapeHtml(data.username + ": " + data.message) + "<br>";
-		var status = "newmessage";
+		status = "newmessage";
 		setColour();
 	} else {
 		allmessages.innerHTML += escapeHtml(data.username + ": " + data.message) + "<br>";
