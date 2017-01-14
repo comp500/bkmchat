@@ -99,9 +99,9 @@ socket.on("connect", function () {
 chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
 	chatDiv.style.width = "auto";
-	chatDiv.style.minWidth = "30px";
+	chatDiv.style.minWidth = "50px";
 	chatDiv.style.height = "auto";
-	chatDiv.style.minHeight = "30px";
+	chatDiv.style.minHeight = "50px";
 	newmessages.style.display = "block";
 	allmessages.style.display = "block";
 	chatDiv.style.backgroundColor = "#FFFFFF";
@@ -110,9 +110,9 @@ chatDiv.addEventListener("mouseenter", function(event) {
 
 chatDiv.addEventListener("mouseleave", function(event) {
 	chatOpen = false;
-	chatDiv.style.width = "5px";
+	chatDiv.style.width = "10px";
 	chatDiv.style.minWidth = "0";
-	chatDiv.style.height = "5px";
+	chatDiv.style.height = "10px";
 	chatDiv.style.minHeight = "0";
 	newmessages.style.display = "none";
 	allmessages.style.display = "none";
