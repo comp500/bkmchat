@@ -15,6 +15,7 @@ chatDiv.style.zIndex = "1000";
 chatDiv.style.color = "#000000";
 chatDiv.style.fontFamily = "Arial";
 chatDiv.style.fontSize = "10px";
+chatDiv.style.overflow = "scroll";
 newmessages.style.fontWeight = "bold";
 newmessages.style.display = "none";
 allmessages.style.display = "none";
