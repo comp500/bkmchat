@@ -16,32 +16,52 @@ var allmessages = [];
 var chatOpen = false;
 var status = "disconnected";
 
+var setColour = function () {
+	if (chatOpen == true) {
+		chatDiv.style.backgroundColor = "#FFFFFF";
+	} else {
+		switch (status) {
+			case "good":
+				chatDiv.style.backgroundColor = "#25B236";
+				break;
+			case "alone":
+				chatDiv.style.backgroundColor = "#FFB324";
+				break;
+			case "newmessage":
+				chatDiv.style.backgroundColor = "#0263CC";
+				break;
+			default:
+				chatDiv.style.backgroundColor = "#FF3B2C";
+		}
+	}
+}
+
 socket.on("connected", function (data) {
 	console.log("connected!");
-	chatDiv.style.backgroundColor = data.notalone ? "#25B236" : "#FFB324";
 	status = data.notalone ? "good" : "alone";
+	setColour();
 });
 
 socket.on("joined", function (data) {
 	console.log("i'm not alone!");
-	chatDiv.style.backgroundColor = "#25B236";
 	var status = "good";
+	setColour();
 });
 
 socket.on("alone", function (data) {
 	console.log("i'm alone");
-	chatDiv.style.backgroundColor = "#FFB324";
 	var status = "alone";
+	setColour();
 });
 
 socket.on("message", function (data){
 	if (data.username != user) {
 		newmessages.push(data);
-		chatDiv.style.backgroundColor = "#0263CC";
+		var status = "newmessage";
+		setColour();
 	}
 	allmessages.push(data);
 	console.log(data.username + ": " + data.message);
-	var status = "newmessage";
 });
 
 var message = function (msg) {
@@ -64,21 +84,14 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
 	chatDiv.style.width = "20px";
 	chatDiv.style.backgroundColor = "#FFFFFF";
+	chatDiv.style.border = "1px black";
 }, false);
 
 chatDiv.addEventListener("mouseleave", function(event) {
 	chatOpen = false;
 	chatDiv.style.width = "5px";
 	chatDiv.innerHTML = "";
+	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
-	switch (status) {
-		case "good":
-			chatDiv.style.backgroundColor = "#25B236";
-			break;
-		case "alone":
-			chatDiv.style.backgroundColor = "#FFB324";
-			break;
-		default:
-			chatDiv.style.backgroundColor = "#FF3B2C";
-	}
+	setColour();
 }, false);
