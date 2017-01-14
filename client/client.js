@@ -133,5 +133,6 @@ textbox.addEventListener("keydown", function(event) {
 		}
 		allmessages.innerHTML += escapeHtml(user + ": " + textbox.value) + "<br>";
 		textbox.value = "";
+		scroll.scrollTop = scroll.scrollHeight;
 	}
 }, false);
