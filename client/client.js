@@ -1,5 +1,5 @@
 var socket = io.connect('http://localhost');
-document.write("<div id=\"bkmChat\"><div id=\"bkmallmessages\"></div><div id=\"bkmnewmessages\"></div></div>");
+document.write("<div id=\"bkmChat\"><div id=\"bkmallmessages\"></div><div id=\"bkmnewmessages\"></div><input type=\"text\" id=\"bkmbox\"></div>");
 var chatDiv = document.getElementById("bkmChat");
 var allmessages = document.getElementById("bkmallmessages");
 var newmessages = document.getElementById("bkmnewmessages");
