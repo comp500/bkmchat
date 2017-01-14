@@ -12,12 +12,13 @@ var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
 		var user = data.username;
+		if (!users.includes(user)) {
+			socket.broadcast.emit("joined", {
+				username: user
+			});
+		}
 		users.push(user);
-		socket.broadcast.emit("joined", {
-			username: user
-		});
 		socket.on("disconnect", function (data) {
-			console.log(users); // test
 			var i = users.indexOf(user);
 			users.splice(i, 1);
 			var unique = users.filter(function(elem, index, self) {
@@ -26,13 +27,13 @@ io.on('connection', function (socket) {
 			if (unique.length < 2) {
 				socket.broadcast.emit("alone");
 			}
-			console.log(users); // test
 		});
-		var notalone = users.filter(function(elem, index, self) {
+		var unique = users.filter(function(elem, index, self) {
 			return index == self.indexOf(elem);
-		}).length > 1;
+		});
+		var notalonebool = unique.length > 1;
 		socket.emit("connected", {
-			notalone: notalone
+			notalone: notalonebool
 		});
 		socket.on("message", function (data) {
 			socket.broadcast.emit("message", data);

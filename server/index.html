@@ -11,7 +11,7 @@
 	chatDiv.style.backgroundColor = "red";
 	chatDiv.style.zIndex = "1000";
 	
-	var user = "test1"; // because i hate you
+	var user = "test1" + new Date().getSeconds(); // because i hate you
 	
 	socket.on("connected", function (data) {
 		console.log("connected!");
@@ -41,5 +41,7 @@
 		});
 	}
 	
-	socket.emit("user", {"username": user});
+	socket.on("connect", function () {
+		socket.emit("user", {"username": user});
+	});
 </script>
