@@ -77,7 +77,7 @@ var message = function (msg) {
 		username: user,
 		message: msg
 	});
-	if (newmessages.innerHTML.length > 3) {
+	if (newmessages.innerHTML.length > 4) {
 		allmessages.innerHTML += newmessages.innerHTML;
 		newmessages.innerHTML = "";
 	}
@@ -113,4 +113,8 @@ chatDiv.addEventListener("mouseleave", function(event) {
 	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
 	setColour();
+	if (newmessages.innerHTML.length > 4) {
+		allmessages.innerHTML += newmessages.innerHTML;
+		newmessages.innerHTML = "";
+	}
 }, false);
