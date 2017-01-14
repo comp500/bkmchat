@@ -104,13 +104,13 @@ socket.on("connect", function () {
 
 chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
+	setColour();
 	chatDiv.style.width = "auto";
 	chatDiv.style.minWidth = "50px";
 	chatDiv.style.height = "auto";
 	chatDiv.style.minHeight = "50px";
 	newmessages.style.display = "block";
 	allmessages.style.display = "block";
-	chatDiv.style.backgroundColor = "#FFFFFF";
 	chatDiv.style.border = "1px solid black";
 	chatDiv.scrollTop = chatDiv.scrollHeight;
 }, false);
