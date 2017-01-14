@@ -10,7 +10,7 @@ var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
 		var user = data.username;
-		if (!users.includes(user)) {
+		if (users.indexOf(user) == -1) {
 			socket.broadcast.emit("joined", {
 				username: user
 			});
