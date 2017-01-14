@@ -1,6 +1,8 @@
 var socket = io.connect('http://localhost');
-document.write("<div id=\"bkmChat\"><div id=\"allmessages\"></div><div id=\"newmessages\"></div></div>");
+document.write("<div id=\"bkmChat\"><div id=\"bkmallmessages\"></div><div id=\"bkmnewmessages\"></div></div>");
 var chatDiv = document.getElementById("bkmChat");
+var allmessages = document.getElementById("bkmallmessages");
+var newmessages = document.getElementById("bkmnewmessages");
 chatDiv.style.position = "absolute";
 chatDiv.style.bottom = "0";
 chatDiv.style.right = "0";
@@ -9,10 +11,11 @@ chatDiv.style.height = "5px";
 chatDiv.style.backgroundColor = "#FF3B2C";
 chatDiv.style.zIndex = "1000";
 chatDiv.style.color = "#000000";
+chatDiv.style.fontFamily = "Arial";
+chatDiv.style.fontSize = "10px";
+newmessages.style.fontWeight = "bold";
 
 var user; // because i hate you = "test1" + new Date().getSeconds()
-var newmessages = [];
-var allmessages = [];
 var chatOpen = false;
 var status = "disconnected";
 
@@ -56,11 +59,14 @@ socket.on("alone", function (data) {
 
 socket.on("message", function (data){
 	if (data.username != user) {
-		newmessages.push(data);
+		newmessages.innerText += data.username + ": " + data.message;
+		newmessages.innerHTML += "<br>";
 		var status = "newmessage";
 		setColour();
+	} else {
+		allmessages.innerText += data.username + ": " + data.message;
+		allmessages.innerHTML += "<br>";
 	}
-	allmessages.push(data);
 	console.log(data.username + ": " + data.message);
 });
 
@@ -83,7 +89,7 @@ socket.on("connect", function () {
 chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
 	chatDiv.style.width = "30px";
-	chatDiv.style.height = "30px";
+	chatDiv.style.height = "auto";
 	chatDiv.style.backgroundColor = "#FFFFFF";
 	chatDiv.style.border = "1px solid black";
 }, false);
