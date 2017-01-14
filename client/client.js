@@ -128,6 +128,7 @@ socket.on("message", function (data){
 	} else {
 		allmessages.innerHTML += escapeHtml(data.username + ": " + data.message) + "<br>";
 	}
+	scroll.scrollTop = scroll.scrollHeight;
 	console.log(data.username + ": " + data.message);
 });
 
