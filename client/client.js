@@ -32,9 +32,9 @@ socket.on("message", function (data){
 	if (data.username != user) {
 		newmessages.push(data);
 		chatDiv.style.backgroundColor = "#0263CC";
-		console.log(data.username + ": " + data.message);
 	}
 	allmessages.push(data);
+	console.log(data.username + ": " + data.message);
 });
 
 var message = function (msg) {
