@@ -82,7 +82,8 @@ socket.on("connect", function () {
 
 chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
-	chatDiv.style.width = "20px";
+	chatDiv.style.width = "30px";
+	chatDiv.style.height = "30px";
 	chatDiv.style.backgroundColor = "#FFFFFF";
 	chatDiv.style.border = "1px solid black";
 }, false);
