@@ -15,7 +15,8 @@ chatDiv.style.zIndex = "1000";
 chatDiv.style.color = "#000000";
 chatDiv.style.fontFamily = "Arial";
 chatDiv.style.fontSize = "10px";
-chatDiv.style.overflow = "scroll";
+chatDiv.style.overflowY = "scroll";
+chatDiv.style.overflowX = "auto";
 newmessages.style.fontWeight = "bold";
 newmessages.style.display = "none";
 allmessages.style.display = "none";
@@ -109,6 +110,7 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	allmessages.style.display = "block";
 	chatDiv.style.backgroundColor = "#FFFFFF";
 	chatDiv.style.border = "1px solid black";
+	chatDiv.scrollTop = chatDiv.scrollHeight;
 }, false);
 
 chatDiv.addEventListener("mouseleave", function(event) {
