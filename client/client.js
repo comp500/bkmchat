@@ -1,5 +1,5 @@
 var socket = io.connect('http://localhost');
-document.write("<div id=\"bkmChat\"></div>");
+document.write("<div id=\"bkmChat\"><div id=\"allmessages\"></div><div id=\"newmessages\"></div></div>");
 var chatDiv = document.getElementById("bkmChat");
 chatDiv.style.position = "absolute";
 chatDiv.style.bottom = "0";
