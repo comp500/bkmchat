@@ -135,3 +135,8 @@ socket.on("connect", function () {
 	user = prompt("Username");
 	socket.emit("user", {"username": user});
 });
+
+socket.on("disconnect", function () {
+	status = "disconnected";
+	setColour();
+});
