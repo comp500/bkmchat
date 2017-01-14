@@ -60,15 +60,25 @@ socket.on("connect", function () {
 	socket.emit("user", {"username": user});
 });
 
-chatDiv.addEventListener("mouseenter", function( event ) {
+chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
 	chatDiv.style.width = "20px";
 	chatDiv.style.backgroundColor = "#FFFFFF";
 }, false);
 
-chatDiv.addEventListener("mouseleave", function( event ) {
+chatDiv.addEventListener("mouseleave", function(event) {
 	chatOpen = false;
 	chatDiv.style.width = "5px";
 	chatDiv.innerHTML = "";
 	status = (status == "newmessage") ? "good" : status;
+	switch (status) {
+		case "good":
+			chatDiv.style.backgroundColor = "#25B236";
+			break;
+		case "alone":
+			chatDiv.style.backgroundColor = "#FFB324";
+			break;
+		case default:
+			chatDiv.style.backgroundColor = "#FF3B2C";
+	}
 }, false);
