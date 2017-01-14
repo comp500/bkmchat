@@ -14,6 +14,8 @@ chatDiv.style.color = "#000000";
 chatDiv.style.fontFamily = "Arial";
 chatDiv.style.fontSize = "10px";
 newmessages.style.fontWeight = "bold";
+newmessages.style.display = "none";
+allmessages.style.display = "none";
 
 var user; // because i hate you = "test1" + new Date().getSeconds()
 var chatOpen = false;
@@ -94,6 +96,8 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	chatDiv.style.minWidth = "30px";
 	chatDiv.style.height = "auto";
 	chatDiv.style.minHeight = "30px";
+	newmessages.style.display = "block";
+	allmessages.style.display = "block";
 	chatDiv.style.backgroundColor = "#FFFFFF";
 	chatDiv.style.border = "1px solid black";
 }, false);
@@ -104,7 +108,8 @@ chatDiv.addEventListener("mouseleave", function(event) {
 	chatDiv.style.minWidth = "0";
 	chatDiv.style.height = "5px";
 	chatDiv.style.minHeight = "0";
-	chatDiv.innerHTML = "";
+	newmessages.style.display = "none";
+	allmessages.style.display = "none";
 	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
 	setColour();
