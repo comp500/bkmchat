@@ -41,6 +41,15 @@ var setColour = function () {
 	}
 }
 
+function escapeHtml(unsafe) {
+	return unsafe
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
+
 socket.on("connected", function (data) {
 	console.log("connected!");
 	status = data.notalone ? "good" : "alone";
@@ -61,13 +70,11 @@ socket.on("alone", function (data) {
 
 socket.on("message", function (data){
 	if (data.username != user) {
-		newmessages.innerText += data.username + ": " + data.message;
-		newmessages.innerHTML += "<br>";
+		newmessages.innerHTML += escapeHtml(data.username + ": " + data.message) + "<br>";
 		var status = "newmessage";
 		setColour();
 	} else {
-		allmessages.innerText += data.username + ": " + data.message;
-		allmessages.innerHTML += "<br>";
+		allmessages.innerHTML += escapeHtml(data.username + ": " + data.message) + "<br>";
 	}
 	console.log(data.username + ": " + data.message);
 });
@@ -81,8 +88,7 @@ var message = function (msg) {
 		allmessages.innerHTML += newmessages.innerHTML;
 		newmessages.innerHTML = "";
 	}
-	allmessages.innerText += user + ": " + msg;
-	allmessages.innerHTML += "<br>";
+	allmessages.innerHTML += escapeHtml(user + ": " + msg) + "<br>";
 }
 
 socket.on("connect", function () {
