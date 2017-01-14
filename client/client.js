@@ -75,10 +75,12 @@ var message = function (msg) {
 		username: user,
 		message: msg
 	});
-	allmessages.push({
-		username: user,
-		message: msg
-	});
+	if (newmessages.innerHTML.length > 3) {
+		allmessages.innerHTML += newmessages.innerHTML;
+		newmessages.innerHTML = "";
+	}
+	allmessages.innerText += user + ": " + msg;
+	allmessages.innerHTML += "<br>";
 }
 
 socket.on("connect", function () {
