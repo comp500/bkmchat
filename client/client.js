@@ -1,29 +1,32 @@
 var socket = io.connect('http://localhost');
-document.write("<div id=\"bkmChat\"><div id=\"bkmallmessages\"></div><div id=\"bkmnewmessages\"></div><input type=\"text\" id=\"bkmbox\"></div>");
+document.write('<div id="bkmChat"><div id="bkmscroll"><div id="bkmallmessages"></div><div id="bkmnewmessages"></div></div><input type="text" id="bkmbox"></div>');
 var chatDiv = document.getElementById("bkmChat");
 var allmessages = document.getElementById("bkmallmessages");
 var newmessages = document.getElementById("bkmnewmessages");
 var textbox = document.getElementById("bkmbox");
+var scroll = document.getElementById("bkmscroll");
 chatDiv.style.position = "absolute";
 chatDiv.style.bottom = "0";
 chatDiv.style.right = "0";
 chatDiv.style.width = "10px";
-chatDiv.style.maxWidth = "150px";
+scroll.style.maxWidth = "150px";
 chatDiv.style.height = "10px";
-chatDiv.style.maxHeight = "200px";
+scroll.style.maxHeight = "200px";
 chatDiv.style.backgroundColor = "#FF3B2C";
 chatDiv.style.zIndex = "1000";
 chatDiv.style.color = "#000000";
 chatDiv.style.fontFamily = "Arial";
 chatDiv.style.fontSize = "10px";
-chatDiv.style.overflowY = "scroll";
-chatDiv.style.overflowX = "hidden";
-chatDiv.style.wordBreak = "break-all";
-chatDiv.style.overflowWrap = "break-word";
+chatDiv.style.overflow = "hidden";
+scroll.style.overflowY = "scroll";
+scroll.style.overflowX = "hidden";
+scroll.style.wordBreak = "break-all";
+scroll.style.overflowWrap = "break-word";
 newmessages.style.fontWeight = "bold";
-newmessages.style.display = "none";
-allmessages.style.display = "none";
+scroll.style.display = "none";
 textbox.style.display = "none";
+scroll.style.minWidth = "50px";
+scroll.style.minHeight = "50px";
 
 var user; // because i hate you = "test1" + new Date().getSeconds()
 var chatOpen = false;
@@ -108,11 +111,8 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
 	setColour();
 	chatDiv.style.width = "auto";
-	chatDiv.style.minWidth = "50px";
 	chatDiv.style.height = "auto";
-	chatDiv.style.minHeight = "50px";
-	newmessages.style.display = "block";
-	allmessages.style.display = "block";
+	scroll.style.display = "block";
 	textbox.style.display = "block";
 	chatDiv.style.border = "1px solid black";
 	chatDiv.scrollTop = chatDiv.scrollHeight;
@@ -121,11 +121,8 @@ chatDiv.addEventListener("mouseenter", function(event) {
 chatDiv.addEventListener("mouseleave", function(event) {
 	chatOpen = false;
 	chatDiv.style.width = "10px";
-	chatDiv.style.minWidth = "0";
 	chatDiv.style.height = "10px";
-	chatDiv.style.minHeight = "0";
-	newmessages.style.display = "none";
-	allmessages.style.display = "none";
+	scroll.style.display = "none";
 	textbox.style.display = "none";
 	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
