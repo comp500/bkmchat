@@ -90,18 +90,6 @@ socket.on("message", function (data){
 	console.log(data.username + ": " + data.message);
 });
 
-var message = function (msg) {
-	socket.emit("message", {
-		username: user,
-		message: msg
-	});
-	if (newmessages.innerHTML.length > 4) {
-		allmessages.innerHTML += newmessages.innerHTML;
-		newmessages.innerHTML = "";
-	}
-	allmessages.innerHTML += escapeHtml(user + ": " + msg) + "<br>";
-}
-
 socket.on("connect", function () {
 	user = prompt("Username");
 	socket.emit("user", {"username": user});
@@ -130,5 +118,19 @@ chatDiv.addEventListener("mouseleave", function(event) {
 	if (newmessages.innerHTML.length > 4) {
 		allmessages.innerHTML += newmessages.innerHTML;
 		newmessages.innerHTML = "";
+	}
+}, false);
+
+textbox.addEventListener("keydown", function(event) {
+	if (event.keyCode == 13 && textbox.value.length > 0) {
+		socket.emit("message", {
+			username: user,
+			message: textbox.value
+		});
+		if (newmessages.innerHTML.length > 4) {
+			allmessages.innerHTML += newmessages.innerHTML;
+			newmessages.innerHTML = "";
+		}
+		allmessages.innerHTML += escapeHtml(user + ": " + msg) + "<br>";
 	}
 }, false);
