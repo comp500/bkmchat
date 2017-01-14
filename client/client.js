@@ -131,6 +131,7 @@ textbox.addEventListener("keydown", function(event) {
 			allmessages.innerHTML += newmessages.innerHTML;
 			newmessages.innerHTML = "";
 		}
-		allmessages.innerHTML += escapeHtml(user + ": " + msg) + "<br>";
+		allmessages.innerHTML += escapeHtml(user + ": " + textbox.value) + "<br>";
+		textbox.value = "";
 	}
 }, false);
