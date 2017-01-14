@@ -115,7 +115,7 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	scroll.style.display = "block";
 	textbox.style.display = "block";
 	chatDiv.style.border = "1px solid black";
-	chatDiv.scrollTop = chatDiv.scrollHeight;
+	scroll.scrollTop = scroll.scrollHeight;
 }, false);
 
 chatDiv.addEventListener("mouseleave", function(event) {
