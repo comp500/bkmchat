@@ -10,6 +10,8 @@ chatDiv.style.backgroundColor = "#FF3B2C";
 chatDiv.style.zIndex = "1000";
 
 var user = "test1" + new Date().getSeconds(); // because i hate you
+var newmessages = [];
+var allmessages = [];
 
 socket.on("connected", function (data) {
 	console.log("connected!");
@@ -28,13 +30,19 @@ socket.on("alone", function (data) {
 
 socket.on("message", function (data){
 	if (data.username != user) {
+		newmessages.push(data);
 		chatDiv.style.backgroundColor = "#0263CC";
 		console.log(data.username + ": " + data.message);
 	}
+	allmessages.push(data);
 });
 
 var message = function (msg) {
 	socket.emit("message", {
+		username: user,
+		message: msg
+	});
+	allmessages.push({
 		username: user,
 		message: msg
 	});
