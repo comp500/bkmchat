@@ -3,6 +3,7 @@ document.write("<div id=\"bkmChat\"><div id=\"bkmallmessages\"></div><div id=\"b
 var chatDiv = document.getElementById("bkmChat");
 var allmessages = document.getElementById("bkmallmessages");
 var newmessages = document.getElementById("bkmnewmessages");
+var textbox = document.getElementById("bkmbox");
 chatDiv.style.position = "absolute";
 chatDiv.style.bottom = "0";
 chatDiv.style.right = "0";
@@ -22,6 +23,7 @@ chatDiv.style.overflowWrap = "break-word";
 newmessages.style.fontWeight = "bold";
 newmessages.style.display = "none";
 allmessages.style.display = "none";
+textbox.style.display = "none";
 
 var user; // because i hate you = "test1" + new Date().getSeconds()
 var chatOpen = false;
@@ -111,6 +113,7 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	chatDiv.style.minHeight = "50px";
 	newmessages.style.display = "block";
 	allmessages.style.display = "block";
+	textbox.style.display = "block";
 	chatDiv.style.border = "1px solid black";
 	chatDiv.scrollTop = chatDiv.scrollHeight;
 }, false);
@@ -123,6 +126,7 @@ chatDiv.addEventListener("mouseleave", function(event) {
 	chatDiv.style.minHeight = "0";
 	newmessages.style.display = "none";
 	allmessages.style.display = "none";
+	textbox.style.display = "none";
 	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
 	setColour();
