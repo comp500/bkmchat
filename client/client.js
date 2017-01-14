@@ -84,7 +84,7 @@ chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
 	chatDiv.style.width = "20px";
 	chatDiv.style.backgroundColor = "#FFFFFF";
-	chatDiv.style.border = "1px black";
+	chatDiv.style.border = "1px solid black";
 }, false);
 
 chatDiv.addEventListener("mouseleave", function(event) {
