@@ -91,6 +91,7 @@ chatDiv.addEventListener("mouseenter", function(event) {
 chatDiv.addEventListener("mouseleave", function(event) {
 	chatOpen = false;
 	chatDiv.style.width = "5px";
+	chatDiv.style.height = "5px";
 	chatDiv.innerHTML = "";
 	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
