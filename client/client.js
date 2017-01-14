@@ -14,20 +14,24 @@ var user; // because i hate you = "test1" + new Date().getSeconds()
 var newmessages = [];
 var allmessages = [];
 var chatOpen = false;
+var status = "disconnected";
 
 socket.on("connected", function (data) {
 	console.log("connected!");
 	chatDiv.style.backgroundColor = data.notalone ? "#25B236" : "#FFB324";
+	status = data.notalone ? "good" : "alone";
 });
 
 socket.on("joined", function (data) {
 	console.log("i'm not alone!");
 	chatDiv.style.backgroundColor = "#25B236";
+	var status = "good";
 });
 
 socket.on("alone", function (data) {
 	console.log("i'm alone");
 	chatDiv.style.backgroundColor = "#FFB324";
+	var status = "alone";
 });
 
 socket.on("message", function (data){
@@ -37,6 +41,7 @@ socket.on("message", function (data){
 	}
 	allmessages.push(data);
 	console.log(data.username + ": " + data.message);
+	var status = "newmessage";
 });
 
 var message = function (msg) {
@@ -65,4 +70,5 @@ chatDiv.addEventListener("mouseleave", function( event ) {
 	chatOpen = false;
 	chatDiv.style.width = "5px";
 	chatDiv.innerHTML = "";
+	status = (status == "newmessage") ? "good" : status;
 }, false);
