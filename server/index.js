@@ -2,10 +2,9 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var path = require('path');
 
-server.listen(80);
-
-app.use(express.static(__dirname + '../client/'));
+app.use(express.static(path.join(__dirname, '../client/')));
 
 var users = [];
 io.on('connection', function (socket) {
@@ -39,3 +38,5 @@ io.on('connection', function (socket) {
 		});
 	});
 });
+
+server.listen(80);
