@@ -8,10 +8,12 @@ chatDiv.style.width = "5px";
 chatDiv.style.height = "5px";
 chatDiv.style.backgroundColor = "#FF3B2C";
 chatDiv.style.zIndex = "1000";
+chatDiv.style.color = "#000000";
 
-var user = "test1" + new Date().getSeconds(); // because i hate you
+var user; // because i hate you = "test1" + new Date().getSeconds()
 var newmessages = [];
 var allmessages = [];
+var chatOpen = false;
 
 socket.on("connected", function (data) {
 	console.log("connected!");
@@ -49,5 +51,18 @@ var message = function (msg) {
 }
 
 socket.on("connect", function () {
+	user = prompt("Username");
 	socket.emit("user", {"username": user});
 });
+
+chatDiv.addEventListener("mouseenter", function( event ) {
+	chatOpen = true;
+	chatDiv.style.width = "20px";
+	chatDiv.style.backgroundColor = "#FFFFFF";
+}, false);
+
+chatDiv.addEventListener("mouseleave", function( event ) {
+	chatOpen = false;
+	chatDiv.style.width = "5px";
+	chatDiv.innerHTML = "";
+}, false);
