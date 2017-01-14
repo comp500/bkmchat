@@ -90,8 +90,10 @@ socket.on("connect", function () {
 
 chatDiv.addEventListener("mouseenter", function(event) {
 	chatOpen = true;
-	chatDiv.style.width = "30px";
+	chatDiv.style.width = "auto";
+	chatDiv.style.minWidth = "30px";
 	chatDiv.style.height = "auto";
+	chatDiv.style.minHeight = "30px";
 	chatDiv.style.backgroundColor = "#FFFFFF";
 	chatDiv.style.border = "1px solid black";
 }, false);
@@ -99,7 +101,9 @@ chatDiv.addEventListener("mouseenter", function(event) {
 chatDiv.addEventListener("mouseleave", function(event) {
 	chatOpen = false;
 	chatDiv.style.width = "5px";
+	chatDiv.style.minWidth = "0";
 	chatDiv.style.height = "5px";
+	chatDiv.style.minHeight = "0";
 	chatDiv.innerHTML = "";
 	chatDiv.style.border = "none";
 	status = (status == "newmessage") ? "good" : status;
