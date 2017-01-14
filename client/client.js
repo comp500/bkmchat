@@ -65,6 +65,47 @@ socket.on("connected", function (data) {
 	console.log("connected!");
 	status = data.notalone ? "good" : "alone";
 	setColour();
+	chatDiv.addEventListener("mouseenter", function(event) {
+		chatOpen = true;
+		setColour();
+		chatDiv.style.width = "auto";
+		chatDiv.style.height = "auto";
+		scroll.style.display = "block";
+		textbox.style.display = "block";
+		chatDiv.style.border = "1px solid black";
+		scroll.scrollTop = scroll.scrollHeight;
+	}, false);
+
+	chatDiv.addEventListener("mouseleave", function(event) {
+		chatOpen = false;
+		chatDiv.style.width = "10px";
+		chatDiv.style.height = "10px";
+		scroll.style.display = "none";
+		textbox.style.display = "none";
+		chatDiv.style.border = "none";
+		status = (status == "newmessage") ? "good" : status;
+		setColour();
+		if (newmessages.innerHTML.length > 4) {
+			allmessages.innerHTML += newmessages.innerHTML;
+			newmessages.innerHTML = "";
+		}
+	}, false);
+
+	textbox.addEventListener("keydown", function(event) {
+		if (event.keyCode == 13 && textbox.value.length > 0) {
+			socket.emit("message", {
+				username: user,
+				message: textbox.value
+			});
+			if (newmessages.innerHTML.length > 4) {
+				allmessages.innerHTML += newmessages.innerHTML;
+				newmessages.innerHTML = "";
+			}
+			allmessages.innerHTML += escapeHtml(user + ": " + textbox.value) + "<br>";
+			textbox.value = "";
+			scroll.scrollTop = scroll.scrollHeight;
+		}
+	}, false);
 });
 
 socket.on("joined", function (data) {
@@ -94,45 +135,3 @@ socket.on("connect", function () {
 	user = prompt("Username");
 	socket.emit("user", {"username": user});
 });
-
-chatDiv.addEventListener("mouseenter", function(event) {
-	chatOpen = true;
-	setColour();
-	chatDiv.style.width = "auto";
-	chatDiv.style.height = "auto";
-	scroll.style.display = "block";
-	textbox.style.display = "block";
-	chatDiv.style.border = "1px solid black";
-	scroll.scrollTop = scroll.scrollHeight;
-}, false);
-
-chatDiv.addEventListener("mouseleave", function(event) {
-	chatOpen = false;
-	chatDiv.style.width = "10px";
-	chatDiv.style.height = "10px";
-	scroll.style.display = "none";
-	textbox.style.display = "none";
-	chatDiv.style.border = "none";
-	status = (status == "newmessage") ? "good" : status;
-	setColour();
-	if (newmessages.innerHTML.length > 4) {
-		allmessages.innerHTML += newmessages.innerHTML;
-		newmessages.innerHTML = "";
-	}
-}, false);
-
-textbox.addEventListener("keydown", function(event) {
-	if (event.keyCode == 13 && textbox.value.length > 0) {
-		socket.emit("message", {
-			username: user,
-			message: textbox.value
-		});
-		if (newmessages.innerHTML.length > 4) {
-			allmessages.innerHTML += newmessages.innerHTML;
-			newmessages.innerHTML = "";
-		}
-		allmessages.innerHTML += escapeHtml(user + ": " + textbox.value) + "<br>";
-		textbox.value = "";
-		scroll.scrollTop = scroll.scrollHeight;
-	}
-}, false);
