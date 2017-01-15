@@ -69,6 +69,7 @@ socket.on("connected", function (data) {
 	socket.on("readmessages", function (data) {
 		if (data.username == user) {
 			status = (status == "newmessage") ? "good" : status;
+			setColour();
 			if (newmessages.innerHTML.length > 4) {
 				allmessages.innerHTML += newmessages.innerHTML;
 				newmessages.innerHTML = "";
