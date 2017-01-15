@@ -65,6 +65,17 @@ socket.on("connected", function (data) {
 	console.log("connected!");
 	status = data.notalone ? "good" : "alone";
 	setColour();
+	
+	socket.on("readmessages", function (data) {
+		if (data.username == user) {
+			status = (status == "newmessage") ? "good" : status;
+			if (newmessages.innerHTML.length > 4) {
+				allmessages.innerHTML += newmessages.innerHTML;
+				newmessages.innerHTML = "";
+			}
+		}
+	});
+	
 	chatDiv.addEventListener("mouseenter", function(event) {
 		chatOpen = true;
 		setColour();
@@ -88,6 +99,7 @@ socket.on("connected", function (data) {
 		if (newmessages.innerHTML.length > 4) {
 			allmessages.innerHTML += newmessages.innerHTML;
 			newmessages.innerHTML = "";
+			socket.emit("readmessages", {username: user});
 		}
 	}, false);
 
@@ -100,6 +112,7 @@ socket.on("connected", function (data) {
 			if (newmessages.innerHTML.length > 4) {
 				allmessages.innerHTML += newmessages.innerHTML;
 				newmessages.innerHTML = "";
+				socket.emit("readmessages", {username: user});
 			}
 			allmessages.innerHTML += escapeHtml(user + ": " + textbox.value) + "<br>";
 			textbox.value = "";
