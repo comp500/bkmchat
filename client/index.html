@@ -8,13 +8,26 @@
 	<meta name="description" content="ICT IGCSE">
 	<meta name="author" content="comp500">
 
+	<style type="text/css">
+	body {
+	   margin: 0;
+	   overflow: hidden;
+	}
+	#iframe1 {
+	    position:absolute;
+	    left: 0px;
+	    width: 100%;
+	    top: 0px;
+	    height: 100%;
+	}
+	</style>
 	<!--[if lt IE 9]>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
 	<![endif]-->
 </head>
 
 <body>
-	<iframe src="http://ictlounge.com/" width="100%" height="100%" seamless="seamless"></iframe>
+	<iframe src="http://ictlounge.com/" id="iframe1"></iframe>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="client.js"></script>
 </body>
