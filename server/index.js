@@ -67,7 +67,7 @@ io.on('connection', function (socket) {
 				} else if (data.message.split(" ")[0].toLowerCase() == "/help") {
 					socket.emit("message", {
 						username: "Server",
-						message: "Commands: \n/list - lists users"
+						message: "Commands: /list - lists users"
 					});
 				} else if (data.message.split(" ")[0].toLowerCase() == "/list") {
 					var list = "Users currently online: ";
