@@ -45,12 +45,12 @@ io.on('connection', function (socket) {
 				} else if (data.username == null || data.username.length < 2 || data.username.length > 20) {
 					socket.emit("message", {
 						username: "Server",
-						message: "Your username is too long or too short, your message was not delivered."
+						message: "Your username is too long or too short, it was not delivered."
 					});
 				} else if (data.message == null || data.message.length < 2 || data.message.length > 100) {
 					socket.emit("message", {
 						username: "Server",
-						message: "Your message is too long or too short, your message was not delivered."
+						message: "Your message is too long or too short, it was not delivered."
 					});
 				} else {
 					socket.broadcast.emit("message", data);
