@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var path = require('path');
+var request = require('request');
 
 app.use(express.static(path.join(__dirname, '../client/')));
 
@@ -54,6 +55,12 @@ io.on('connection', function (socket) {
 					});
 				} else {
 					socket.broadcast.emit("message", data);
+					if (process.env.WEBHOOK) {
+						request(process.env.WEBHOOK, {
+							content: data.message,
+							username: data.username
+						});
+					}
 				}
 			});
 			socket.on("readmessages", function (data) {
