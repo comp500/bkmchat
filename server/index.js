@@ -41,7 +41,7 @@ io.on('connection', function (socket) {
 			for (var i = 0; i < users.length; i++) {
 				motd += users[i];
 				if (i != (users.length - 1)) {
-					motd += ",";
+					motd += ", ";
 				}
 			}
 			socket.emit("message", {
@@ -74,7 +74,7 @@ io.on('connection', function (socket) {
 					for (var i = 0; i < users.length; i++) {
 						list += users[i];
 						if (i != (users.length - 1)) {
-							list += ",";
+							list += ", ";
 						}
 					}
 					socket.emit("message", {
