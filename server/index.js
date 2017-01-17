@@ -37,6 +37,17 @@ io.on('connection', function (socket) {
 			socket.emit("connected", {
 				notalone: notalonebool
 			});
+			var motd = "Welcome to bkmchat, users currently online: ";
+			for (var i = 0; i < users.length; i++) {
+				motd += users[i];
+				if (i != (users.length - 1)) {
+					motd += ",";
+				}
+			}
+			socket.emit("message", {
+				username: "Server",
+				message: motd
+			});
 			socket.on("message", function (data) {
 				if (data.username.indexOf("Server") != -1) {
 					socket.emit("message", {
@@ -52,6 +63,23 @@ io.on('connection', function (socket) {
 					socket.emit("message", {
 						username: "Server",
 						message: "Your message is too long or too short, it was not delivered."
+					});
+				} else if (data.message.split(" ")[0].toLowerCase() == "/help") {
+					socket.emit("message", {
+						username: "Server",
+						message: "Commands: \n/list - lists users"
+					});
+				} else if (data.message.split(" ")[0].toLowerCase() == "/list") {
+					var list = "Users currently online: ";
+					for (var i = 0; i < users.length; i++) {
+						list += users[i];
+						if (i != (users.length - 1)) {
+							list += ",";
+						}
+					}
+					socket.emit("message", {
+						username: "Server",
+						message: list
 					});
 				} else {
 					socket.broadcast.emit("message", data);
