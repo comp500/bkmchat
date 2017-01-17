@@ -10,7 +10,7 @@ var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
 		var user = data.username;
-		if (user == null || user.length < 2) {
+		if (user == null || user.length < 2 || user.length > 20) {
 			socket.emit("usernamereject");
 		} else {
 			if (users.indexOf(user) == -1) {
