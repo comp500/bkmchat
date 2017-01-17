@@ -10,35 +10,39 @@ var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
 		var user = data.username;
-		if (users.indexOf(user) == -1) {
-			socket.broadcast.emit("joined", {
-				username: user
+		if (user == null || user.length < 2) {
+			socket.emit("usernamereject");
+		} else {
+			if (users.indexOf(user) == -1) {
+				socket.broadcast.emit("joined", {
+					username: user
+				});
+			}
+			users.push(user);
+			socket.on("disconnect", function (data) {
+				var i = users.indexOf(user);
+				users.splice(i, 1);
+				var unique = users.filter(function(elem, index, self) {
+					return index == self.indexOf(elem);
+				});
+				if (unique.length < 2) {
+					socket.broadcast.emit("alone");
+				}
 			});
-		}
-		users.push(user);
-		socket.on("disconnect", function (data) {
-			var i = users.indexOf(user);
-			users.splice(i, 1);
 			var unique = users.filter(function(elem, index, self) {
 				return index == self.indexOf(elem);
 			});
-			if (unique.length < 2) {
-				socket.broadcast.emit("alone");
-			}
-		});
-		var unique = users.filter(function(elem, index, self) {
-			return index == self.indexOf(elem);
-		});
-		var notalonebool = unique.length > 1;
-		socket.emit("connected", {
-			notalone: notalonebool
-		});
-		socket.on("message", function (data) {
-			socket.broadcast.emit("message", data);
-		});
-		socket.on("readmessages", function (data) {
-			socket.broadcast.emit("readmessages", data);
-		});
+			var notalonebool = unique.length > 1;
+			socket.emit("connected", {
+				notalone: notalonebool
+			});
+			socket.on("message", function (data) {
+				socket.broadcast.emit("message", data);
+			});
+			socket.on("readmessages", function (data) {
+				socket.broadcast.emit("readmessages", data);
+			});
+		}
 	});
 });
 

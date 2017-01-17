@@ -147,6 +147,11 @@ socket.on("message", function (data){
 });
 
 socket.on("connect", function () {
+	user = user || prompt("Username");
+	socket.emit("user", {"username": user});
+});
+
+socket.on("usernamereject", function () {
 	user = prompt("Username");
 	socket.emit("user", {"username": user});
 });
