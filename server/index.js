@@ -56,7 +56,7 @@ io.on('connection', function (socket) {
 				} else {
 					socket.broadcast.emit("message", data);
 					if (process.env.WEBHOOK) {
-						request(process.env.WEBHOOK, {form: {
+						request.post(process.env.WEBHOOK, {form: {
 							content: data.message,
 							username: data.username
 						}}, );
