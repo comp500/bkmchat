@@ -10,7 +10,7 @@ var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
 		var user = data.username;
-		if (user == null || user.length < 2 || user.length > 20) {
+		if (user == null || user.length < 2 || user.length > 20 || user.indexOf("Server") == -1) {
 			socket.emit("usernamereject");
 		} else {
 			if (users.indexOf(user) == -1) {
@@ -37,7 +37,24 @@ io.on('connection', function (socket) {
 				notalone: notalonebool
 			});
 			socket.on("message", function (data) {
-				socket.broadcast.emit("message", data);
+				if (data.username.indexOf("Server") == -1) {
+					socket.emit("message", {
+						username: "Server",
+						message: "Don't try to impersonate me"
+					});
+				} else if (data.username == null || data.username.length < 2 || data.username.length > 20) {
+					socket.emit("message", {
+						username: "Server",
+						message: "Your username is too long or too short, your message was not delivered."
+					});
+				} else if (data.message == null || data.message.length < 2 || data.message.length > 100) {
+					socket.emit("message", {
+						username: "Server",
+						message: "Your message is too long or too short, your message was not delivered."
+					});
+				} else {
+					socket.broadcast.emit("message", data);
+				}
 			});
 			socket.on("readmessages", function (data) {
 				socket.broadcast.emit("readmessages", data);
