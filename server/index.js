@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
 				notalone: notalonebool
 			});
 			socket.on("message", function (data) {
-				if (data.username.indexOf("Server") == -1) {
+				if (data.username.indexOf("Server") != -1) {
 					socket.emit("message", {
 						username: "Server",
 						message: "Don't try to impersonate me"
