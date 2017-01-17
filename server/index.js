@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
 						request.post(process.env.WEBHOOK, {form: {
 							content: data.message,
 							username: data.username
-						}}, );
+						}});
 					}
 				}
 			});
