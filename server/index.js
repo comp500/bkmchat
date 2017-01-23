@@ -91,7 +91,7 @@ io.on('connection', function (socket) {
 				} else {
 					socket.broadcast.emit("message", data);
 					if (process.env.WEBHOOK) {
-						if (data.hasOwnProperty(dataTransfer) && data.dataTransfer == true) {
+						if (data.hasOwnProperty("dataTransfer") && data.dataTransfer == true) {
 							// stuff
 						} else {
 							request.post(process.env.WEBHOOK, {form: {
