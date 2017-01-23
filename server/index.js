@@ -10,6 +10,10 @@ app.use(express.static(path.join(__dirname, '../client/')));
 var users = [];
 io.on('connection', function (socket) {
 	socket.on("user", function (data) {
+		if (typeof(data.username) != "string") {
+			socket.emit("usernamereject");
+			return true;
+		}
 		var user = data.username;
 		if (user == null || user.length < 2 || user.length > 20 || user.indexOf("Server") != -1) {
 			socket.emit("usernamereject");
@@ -49,6 +53,9 @@ io.on('connection', function (socket) {
 				message: motd
 			});
 			socket.on("message", function (data) {
+				if (typeof(data.username) != "string" || typeof(data.message) != "string") {
+					return true;
+				}
 				if (data.username.indexOf("Server") != -1) {
 					socket.emit("message", {
 						username: "Server",
