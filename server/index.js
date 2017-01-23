@@ -91,10 +91,12 @@ io.on('connection', function (socket) {
 				} else {
 					socket.broadcast.emit("message", data);
 					if (process.env.WEBHOOK) {
-						request.post(process.env.WEBHOOK, {form: {
-							content: data.message,
-							username: data.username
-						}});
+						if (data.username.indexOf("MSS-DATA") == -1) {
+							request.post(process.env.WEBHOOK, {form: {
+								content: data.message,
+								username: data.username
+							}});
+						}
 					}
 				}
 			});
