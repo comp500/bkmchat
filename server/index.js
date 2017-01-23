@@ -91,7 +91,9 @@ io.on('connection', function (socket) {
 				} else {
 					socket.broadcast.emit("message", data);
 					if (process.env.WEBHOOK) {
-						if (data.username.indexOf("†") == -1) {
+						if (data.hasOwnProperty(dataTransfer) && data.dataTransfer == true) {
+							// stuff
+						} else {
 							request.post(process.env.WEBHOOK, {form: {
 								content: data.message,
 								username: data.username
