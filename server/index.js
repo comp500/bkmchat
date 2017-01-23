@@ -91,7 +91,7 @@ io.on('connection', function (socket) {
 				} else {
 					socket.broadcast.emit("message", data);
 					if (process.env.WEBHOOK) {
-						if (data.username.indexOf("MSS-DATA") == -1) {
+						if (data.username.indexOf("@DL") == -1) {
 							request.post(process.env.WEBHOOK, {form: {
 								content: data.message,
 								username: data.username
