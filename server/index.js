@@ -56,6 +56,7 @@ io.on('connection', function (socket) {
 				if (typeof(data.username) != "string" || typeof(data.message) != "string") {
 					return true;
 				}
+				console.log(data.message.length);
 				if (data.username.indexOf("Server") != -1) {
 					socket.emit("message", {
 						username: "Server",
@@ -66,7 +67,7 @@ io.on('connection', function (socket) {
 						username: "Server",
 						message: "Your username is too long or too short, it was not delivered."
 					});
-				} else if (data.message == null || data.message.length < 2 || data.message.length > 1520) {
+				} else if (data.message == null || data.message.length < 2 || data.message.length > 1500) {
 					socket.emit("message", {
 						username: "Server",
 						message: "Your message is too long or too short, it was not delivered."
