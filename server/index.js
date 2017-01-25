@@ -66,7 +66,7 @@ io.on('connection', function (socket) {
 						username: "Server",
 						message: "Your username is too long or too short, it was not delivered."
 					});
-				} else if (data.message == null || data.message.length < 2 || data.message.length > 1537) {
+				} else if (data.message == null || data.message.length < 2 || data.message.length > 1520) {
 					socket.emit("message", {
 						username: "Server",
 						message: "Your message is too long or too short, it was not delivered."
